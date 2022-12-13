@@ -15,6 +15,12 @@ class AppInjections {
     getIt.registerSingleton<ICustomAppStorage>(
       SecureAppStorage(),
     );
+    getIt.registerSingleton<IHttpService>(
+      HttpService(
+        ApiConstants.baseUrl,
+        additionalInterceptorsList: [],
+      ),
+    );
 
     ///*-----------------InitInjections-------------------*\\\
     SplashModuleInjections.init();
