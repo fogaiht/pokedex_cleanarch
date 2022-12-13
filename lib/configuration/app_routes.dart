@@ -7,5 +7,6 @@ class AppRoutes {
 
   static Map<String, WidgetBuilder> privateRoutes = {
     SplashPage.routeName: (_) => const SplashPage(),
+    HomePage.routeName: (_) => const HomePage(),
   };
 }
