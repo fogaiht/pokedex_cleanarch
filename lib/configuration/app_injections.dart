@@ -23,6 +23,7 @@ class AppInjections {
     );
 
     ///*-----------------InitInjections-------------------*\\\
+    LoginModule.initInjections();
     SplashModuleInjections.init();
   }
 }
