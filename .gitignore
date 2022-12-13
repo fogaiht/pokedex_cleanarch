@@ -34,6 +34,7 @@ migrate_working_dir/
 .pub/
 .fvm/flutter_sdk
 /build/
+**/*.g.dart
 pubspec.lock
 
 # Web related
