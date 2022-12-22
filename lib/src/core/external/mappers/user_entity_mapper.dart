@@ -13,12 +13,16 @@ class UserEntityMapper extends User {
 
   static User fromJson(Map<String, dynamic> json) {
     try {
+      final pokemonList = List<Pokemon>.from(
+        json['pokemonList'].map((e) => PokemonEntityMapper.fromJson(e)),
+      );
+
+      pokemonList.sort(((a, b) => a.id.compareTo(b.id)));
+
       return User(
         name: json['name'],
         email: json['email'],
-        pokemonList: List<Pokemon>.from(
-          json['pokemonList'].map((e) => PokemonEntityMapper.fromJson(e)),
-        ),
+        pokemonList: pokemonList,
       );
     } on DataSourceError {
       rethrow;

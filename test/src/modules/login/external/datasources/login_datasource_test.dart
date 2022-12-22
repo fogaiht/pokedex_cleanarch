@@ -115,7 +115,7 @@ final payload = {
   'result': {
     'name': 'Thiago',
     'email': 'teste@teste.com',
-    'token': 'r:38d0a9e559c33487cc0047120f1304d0',
+    'token': 'r:a15074e827c86a1dd4db1a386d8ba515',
     'pokemonList': [
       {
         'name': 'bulbasaur',
@@ -130,36 +130,10 @@ final payload = {
           {'name': 'special-attack', 'statValue': 65},
           {'name': 'special-defense', 'statValue': 65},
           {'name': 'speed', 'statValue': 45}
-        ]
-      },
-      {
-        'name': 'ivysaur',
-        'pokemonId': 2,
-        'isShiny': false,
-        'spriteUrl':
-            'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png',
-        'stats': [
-          {'name': 'hp', 'statValue': 60},
-          {'name': 'attack', 'statValue': 62},
-          {'name': 'defense', 'statValue': 63},
-          {'name': 'special-attack', 'statValue': 80},
-          {'name': 'special-defense', 'statValue': 80},
-          {'name': 'speed', 'statValue': 60}
-        ]
-      },
-      {
-        'name': 'venusaur',
-        'pokemonId': 3,
-        'isShiny': false,
-        'spriteUrl':
-            'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png',
-        'stats': [
-          {'name': 'hp', 'statValue': 80},
-          {'name': 'attack', 'statValue': 82},
-          {'name': 'defense', 'statValue': 83},
-          {'name': 'special-attack', 'statValue': 100},
-          {'name': 'special-defense', 'statValue': 100},
-          {'name': 'speed', 'statValue': 80}
+        ],
+        'types': [
+          {'name': 'grass', 'color': '7AC74C'},
+          {'name': 'poison', 'color': 'A33EA1'}
         ]
       }
     ]
