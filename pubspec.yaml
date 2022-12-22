@@ -38,3 +38,19 @@ flutter:
   uses-material-design: true
   assets:
     - images/
+
+  fonts:
+    - family: SevenSegment
+      fonts:
+        - asset: assets/fonts/seven_segments.ttf
+
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/MontserratRegular.ttf
+
+    - family: Pokemon
+      fonts:
+        - asset: assets/fonts/PokemonSolid.ttf
+          weight: 900
+        - asset: assets/fonts/PokemonHollow.ttf
+          weight: 200

@@ -13,6 +13,13 @@ Future<void> main() async {
   await precachePicture(
     ExactAssetPicture(
       SvgPicture.svgStringDecoderOutsideViewBoxBuilder,
+      'images/pokeball.svg',
+    ),
+    null,
+  );
+  await precachePicture(
+    ExactAssetPicture(
+      SvgPicture.svgStringDecoderOutsideViewBoxBuilder,
       'images/captured_pokeball.svg',
     ),
     null,
