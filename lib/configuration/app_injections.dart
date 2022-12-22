@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 
 import '../src/modules/login/login_module.dart';
+import '../src/modules/pokedex/pokedex_module.dart';
 import '../src/modules/splash/splash_module.dart';
 import '../src/services/pokedex_services.dart';
 import '../src/shared/storage/export/storage.dart';
@@ -23,7 +24,8 @@ class AppInjections {
     );
 
     ///*-----------------InitInjections-------------------*\\\
-    LoginModule.initInjections();
     SplashModuleInjections.init();
+    LoginModule.initInjections();
+    PokedexModule.initInjections();
   }
 }

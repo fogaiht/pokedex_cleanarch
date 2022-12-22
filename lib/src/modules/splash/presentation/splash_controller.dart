@@ -21,7 +21,7 @@ abstract class _SplashControllerBase with Store {
   @action
   Future<String> splashValidation() async {
     final userIsLogged = await _userIsLogged();
-    return userIsLogged ? HomePage.routeName : LoginPage.routeName;
+    return userIsLogged ? PokedexPage.routeName : LoginPage.routeName;
   }
 
   @action
