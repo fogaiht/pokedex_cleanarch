@@ -6,8 +6,14 @@ import 'package:flutter/foundation.dart';
 import '../data/indexed_utils_errors.dart';
 
 class ErrorReport {
-  static Future<void> _report(dynamic exception, StackTrace stackTrace,
-      String tag, String errorCode, bool? showInDebugTest) async {
+  static Future<void> _report(
+    dynamic exception,
+    StackTrace stackTrace,
+    String tag,
+    String errorCode,
+    bool? showInDebugTest
+  ) async {
+    print('$errorCode ${tag.split('\n').first}');
     if (Platform.environment.containsKey('FLUTTER_TEST') &&
         showInDebugTest == true) {
       debugPrint('$tag \n$errorCode - $exception');
@@ -15,7 +21,8 @@ class ErrorReport {
     if (!(Platform.environment.containsKey('FLUTTER_TEST')) &&
         exception != null) {
       final errorTag = '$errorCode $tag ${exception.toString()}';
-      debugPrintStack(label: errorTag, stackTrace: stackTrace);
+      print(tag);
+      debugPrintStack(stackTrace: stackTrace);
       // await FirebaseCrashlytics.instance.setCustomKey(
       //   _errorTag,
       //   exception.toString(),

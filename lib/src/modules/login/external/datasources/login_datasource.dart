@@ -28,6 +28,8 @@ class LoginDatasource extends ILoginDatasource {
               stackTrace: s,
             )
           : throw ApiDataSourceError.fromError(e.response?.data, s);
+    } on DataSourceError {
+      rethrow;
     } catch (e, s) {
       throw DataSourceError(message: e.toString(), stackTrace: s);
     }

@@ -1,3 +1,4 @@
+import '../../../../core/external/mappers/pokemon_entity_mapper.dart';
 import '../../../../core/external/mappers/user_entity_mapper.dart';
 import '../../../../shared/errors/datasource_error.dart';
 import '../../domain/entities/read_pokemon_response.dart';
@@ -7,7 +8,8 @@ class ReadPokemonResponseMapper {
   static ReadPokemonResponse fromJson(Map<String, dynamic> json) {
     try {
       return ReadPokemonResponse(
-        user: UserEntityMapper.fromJson(json),
+        readedPokemon: PokemonEntityMapper.fromJson(json['pokemon']),
+        user: UserEntityMapper.fromJson(json['user']),
       );
     } on DataSourceError {
       rethrow;

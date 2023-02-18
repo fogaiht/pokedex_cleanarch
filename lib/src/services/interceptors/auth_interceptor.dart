@@ -12,7 +12,7 @@ class AuthInterceptor extends InterceptorsWrapper {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    if (options.path != Endpoints.login) {
+    if (options.path != Endpoints.login && options.path != Endpoints.signUp) {
       final storage = GetIt.I.get<ICustomAppStorage>();
       final httpService = GetIt.I.get<IHttpService>();
       final token = await storage.readKey('token');
@@ -30,7 +30,8 @@ class AuthInterceptor extends InterceptorsWrapper {
     Response response,
     ResponseInterceptorHandler handler,
   ) async {
-    if (response.requestOptions.path == Endpoints.login &&
+    if ((response.requestOptions.path == Endpoints.login ||
+            response.requestOptions.path == Endpoints.signUp) &&
         response.statusCode == 200) {
       final httpService = GetIt.I.get<IHttpService>();
       final storage = GetIt.I.get<ICustomAppStorage>();

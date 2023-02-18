@@ -15,11 +15,6 @@ class LoginParams {
         'password': password.value,
       };
 
-  Map<String, dynamic> toJson() => {
-        'email': email.value,
-        'password': password.value,
-      };
-
   factory LoginParams.fromJson(Map<String, dynamic> json) => LoginParams(
         email: Email(json['email']),
         password: Password(json['password']),

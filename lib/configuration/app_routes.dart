@@ -14,5 +14,6 @@ class AppRoutes {
           ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
       return PokedexPage(pokeNumber: 1, user: args['user'] as User);
     },
+    SignUpPage.routeName: (_) => const SignUpPage(),
   };
 }

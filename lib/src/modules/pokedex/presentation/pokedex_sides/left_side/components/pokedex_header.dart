@@ -85,6 +85,27 @@ class PokedexHeader extends StatelessWidget {
           ),
         ),
         Positioned(
+          top: heightSize * 0.02,
+          left: widthSize * 0.78,
+          child: IconButton(
+            onPressed: () {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                '/login',
+                (route) => false,
+              );
+            },
+            icon: Icon(
+              Icons.power_settings_new,
+              color: Colors.white,
+              size: widthSize * .125,
+              shadows: const [
+                Shadow(offset: Offset(3.0, 3.0), blurRadius: 3.0),
+                Shadow(offset: Offset(3.0, 3.0), blurRadius: 8.0),
+              ],
+            ),
+          ),
+        ),
+        Positioned(
           top: heightSize * 0.166 * 0.26,
           left: widthSize * 0.11,
           child: Container(

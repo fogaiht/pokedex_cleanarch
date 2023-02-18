@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/domain/entities/pokemon_entity.dart';
+import '../../../../../../shared/shared_files.dart';
+import '../../../../../../shared/utils/pokedex_state.dart';
 
 class PokedexScreen extends StatelessWidget {
   final List<Pokemon> pokemonList;
   final Pokemon? selectedPokemon;
+  final PokedexState state;
 
   const PokedexScreen({
     super.key,
     required this.pokemonList,
     this.selectedPokemon,
+    required this.state,
   });
 
   @override
@@ -53,22 +57,27 @@ class PokedexScreen extends StatelessWidget {
                 color: const Color(0xff222222),
               ),
               child: Center(
-                child: selectedPokemon == null
-                    ? Text(
-                        '${pokemonList.length}\nPokemons',
-                        style: const TextStyle(
-                          color: Color(0xff00ff00),
-                          fontSize: 45,
-                          fontFamily: 'SevenSegment',
-                        ),
-                        textAlign: TextAlign.center,
+                child: state == PokedexState.loading
+                    ? const PokedexSpinRing(
+                        lineWidth: 5,
+                        color: Color(0xff00ff00),
                       )
-                    : Transform.scale(
-                        scale: 2.3,
-                        child: Image.network(
-                          selectedPokemon!.spriteUrl,
-                        ),
-                      ),
+                    : selectedPokemon == null
+                        ? Text(
+                            '${pokemonList.length}\nPokemons',
+                            style: const TextStyle(
+                              color: Color(0xff00ff00),
+                              fontSize: 45,
+                              fontFamily: 'SevenSegment',
+                            ),
+                            textAlign: TextAlign.center,
+                          )
+                        : Transform.scale(
+                            scale: 2.3,
+                            child: Image.network(
+                              selectedPokemon!.spriteUrl,
+                            ),
+                          ),
               ),
             ),
           ),

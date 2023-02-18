@@ -1,5 +1,3 @@
-import '../data/extensions.dart';
-import '../data/pokedex_texts.dart';
 import 'datasource_error.dart';
 
 class MapperError extends DataSourceError {
@@ -13,7 +11,7 @@ class MapperError extends DataSourceError {
     required this.mapperName,
     bool? showInDebugTest,
   }) : super(
-          message: PokedexTexts.unexpectedErrorCode.errorCode(errorCode),
+          message: '$errorCode $mapperName -> $errorMessage',
           stackTrace: stackTrace,
           reportTag: '$errorCode $mapperName -> $errorMessage',
           indexedCode: errorCode,

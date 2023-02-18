@@ -38,29 +38,48 @@ class _PokedexPageState extends State<PokedexPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(builder: (_) {
-      return PageView(
-        controller: _pageController,
-        physics: _controller.selectedPokemon == null
-            ? const NeverScrollableScrollPhysics()
-            : null,
-        children: [
-          LeftSide(
-            pokemonList: _controller.pokemonList,
-            selectedPokemon: _controller.selectedPokemon,
-            onSelectPokemon: (pokemon) {
-              _controller.onSelectPokemon(pokemon);
-              _pageController.nextPage(
-                duration: const Duration(milliseconds: 250),
-                curve: Curves.easeIn,
-              );
-            },
-            nextPokemon: (pokemon) => _controller.nextPokemon(),
-            previousPokemon: (pokemon) => _controller.previousPokemon(),
+    return WillPopScope(
+      onWillPop: () async {
+        _pageController.previousPage(
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeIn,
+        );
+        return false;
+      },
+      child: Observer(builder: (_) {
+        return NotificationListener<OverscrollIndicatorNotification>(
+          onNotification: (overscroll) {
+            overscroll.disallowIndicator();
+            return true;
+          },
+          child: PageView(
+            controller: _pageController,
+            physics: _controller.selectedPokemon == null
+                ? const NeverScrollableScrollPhysics()
+                : null,
+            children: [
+              LeftSide(
+                state: _controller.pokedexState,
+                pokemonList: _controller.pokemonList,
+                selectedPokemon: _controller.selectedPokemon,
+                readPokemon: () async {
+                  await _controller.doReadPokemon(context);
+                },
+                onSelectPokemon: (pokemon) {
+                  _controller.onSelectPokemon(pokemon);
+                  _pageController.nextPage(
+                    duration: const Duration(milliseconds: 250),
+                    curve: Curves.easeIn,
+                  );
+                },
+                nextPokemon: (pokemon) => _controller.nextPokemon(),
+                previousPokemon: (pokemon) => _controller.previousPokemon(),
+              ),
+              RightPage(selectedPokemon: _controller.selectedPokemon),
+            ],
           ),
-          RightPage(selectedPokemon: _controller.selectedPokemon),
-        ],
-      );
-    });
+        );
+      }),
+    );
   }
 }

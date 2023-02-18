@@ -37,12 +37,8 @@ class _PokedexSpinRingState extends State<PokedexSpinRing>
         AnimationController(vsync: this, duration: widget.duration))
       ..addListener(() => setState(() {}))
       ..repeat();
-    _animation1 = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(
-          0.0,
-          1.0,
-        )));
+    _animation1 = Tween(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(parent: _controller, curve: const Interval(0.0, 1.0)));
     _animation2 = Tween(begin: -2.0 / 3.0, end: 1 / 2).animate(
         CurvedAnimation(parent: _controller, curve: const Interval(0.5, 1.0)));
     _animation3 = Tween(begin: 0.25, end: 5 / 6).animate(CurvedAnimation(

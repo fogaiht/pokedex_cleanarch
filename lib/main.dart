@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pokedex_cleanarch/src/shared/shared_files.dart';
 
 import 'configuration/app_injections.dart';
 import 'configuration/app_routes.dart';
@@ -46,9 +47,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'CleanArch Pokedex',
       routes: AppRoutes.privateRoutes,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: appTheme,
       home: const SplashPage(),
     );
   }

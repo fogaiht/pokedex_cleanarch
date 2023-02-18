@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:dio/native_imp.dart';
 
 import '../interceptors/export/interceptors.dart';
-import '../interceptors/header_interceptor.dart';
 
 class HttpService extends DioForNative implements IHttpService {
   final String baseUrl;

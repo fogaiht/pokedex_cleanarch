@@ -21,11 +21,14 @@ class PokeInfo extends StatefulWidget {
 class _PokeInfoState extends State<PokeInfo> {
   late Pokemon selectedPokemon;
   late Color selectedPokemonColor;
+  late bool isEletric;
 
   @override
   void initState() {
     selectedPokemon = widget.selectedPokemon ?? PokemonEntityMapper.empty();
     selectedPokemonColor = HexColor.fromHex(selectedPokemon.types.first.color);
+    isEletric = HexColor.fromHex(selectedPokemon.types.first.color) ==
+        HexColor.fromHex('F7D02C');
     super.initState();
   }
 
@@ -57,24 +60,40 @@ class _PokeInfoState extends State<PokeInfo> {
             Positioned(
               left: widthSize * 0.11,
               top: heightSize * 0.05,
-              child: const Text(
+              child: Text(
                 'Quem é',
                 style: TextStyle(
                   fontSize: 35,
                   fontFamily: 'Pokemon',
-                  color: Colors.yellow,
+                  color: isEletric ? Colors.white : Colors.yellow,
+                  shadows: const [
+                    Shadow(offset: Offset(5.0, 5.0), blurRadius: 3.0),
+                    Shadow(
+                      offset: Offset(5.0, 5.0),
+                      blurRadius: 8.0,
+                      color: Color.fromARGB(125, 0, 0, 255),
+                    ),
+                  ],
                 ),
               ),
             ),
             Positioned(
               left: widthSize * 0.2,
               top: heightSize * 0.12,
-              child: const Text(
+              child: Text(
                 'esse Pokémon?',
                 style: TextStyle(
                   fontSize: 35,
                   fontFamily: 'Pokemon',
-                  color: Colors.yellow,
+                  color: isEletric ? Colors.white : Colors.yellow,
+                  shadows: const [
+                    Shadow(offset: Offset(5.0, 5.0), blurRadius: 3.0),
+                    Shadow(
+                      offset: Offset(5.0, 5.0),
+                      blurRadius: 8.0,
+                      color: Color.fromARGB(125, 0, 0, 255),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -101,7 +120,6 @@ class _PokeInfoState extends State<PokeInfo> {
                 width: widthSize,
                 height: heightSize,
                 child: Stack(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Positioned(
                       bottom: heightSize * 0.72,
@@ -110,13 +128,9 @@ class _PokeInfoState extends State<PokeInfo> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          Container(
+                          SizedBox(
                             width: heightSize * 0.245,
                             height: heightSize * 0.245,
-                            decoration: const BoxDecoration(
-                                // color: Colors.green[800],
-                                // border: Border.all(width: 1, color: Colors.black),
-                                ),
                             child: Transform.scale(
                               scale: 2.3,
                               child: Image.network(selectedPokemon.spriteUrl),
@@ -125,7 +139,7 @@ class _PokeInfoState extends State<PokeInfo> {
                           SizedBox(
                             width: heightSize * 0.245,
                             child: Text(
-                              '— ${selectedPokemon.name} —',
+                              '— ${selectedPokemon.name.capitalizeFirst} —',
                               style: TextStyle(
                                 fontSize: heightSize * 0.03,
                                 fontFamily: 'Montserrat',
@@ -138,22 +152,28 @@ class _PokeInfoState extends State<PokeInfo> {
                     Positioned(
                       top: heightSize * 0.05,
                       right: 0,
-                      child: Container(
+                      child: SizedBox(
                         width: widthSize * 0.256,
                         height: heightSize * 0.1,
-                        decoration: const BoxDecoration(
-                            // color: Colors.green[800],
-                            // border: Border.all(width: 1, color: Colors.red),
-                            ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             Text(
                               '#${selectedPokemon.id}',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 30,
                                 fontFamily: 'Pokemon',
-                                color: Colors.yellow,
+                                color: isEletric ? Colors.white : Colors.yellow,
+                                shadows: const [
+                                  Shadow(
+                                      offset: Offset(5.0, 5.0),
+                                      blurRadius: 3.0),
+                                  Shadow(
+                                    offset: Offset(5.0, 5.0),
+                                    blurRadius: 8.0,
+                                    color: Color.fromARGB(125, 0, 0, 255),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
@@ -165,25 +185,13 @@ class _PokeInfoState extends State<PokeInfo> {
                       right: widthSize * 0.05,
                       child: Column(
                         children: [
-                          Container(
+                          SizedBox(
                             width: widthSize * 0.256,
                             height: heightSize * 0.125,
-                            decoration: const BoxDecoration(
-                                // color: Colors.green[800],
-                                // border: Border.all(width: 1, color: Colors.red),
-                                ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                // color: Colors.grey,
-                                // border:
-                                //     Border.all(width: 1, color: Colors.grey),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Transform.scale(
-                                scale: .9,
-                                child: SvgPicture.asset(
-                                  'images/captured_pokeball.svg',
-                                ),
+                            child: Transform.scale(
+                              scale: .9,
+                              child: SvgPicture.asset(
+                                'images/captured_pokeball.svg',
                               ),
                             ),
                           ),
@@ -202,16 +210,13 @@ class _PokeInfoState extends State<PokeInfo> {
                     Positioned(
                       top: heightSize * 0.2,
                       left: 0,
-                      child: Container(
+                      child: SizedBox(
                         width: widthSize * 0.256,
                         height: heightSize * 0.125,
-                        decoration: const BoxDecoration(
-                            // color: Colors.green[800],
-                            // border: Border.all(width: 1, color: Colors.red),
-                            ),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
+                            const Spacer(),
                             SizedBox(
                               width: widthSize * 0.18,
                               child: Center(
@@ -224,9 +229,13 @@ class _PokeInfoState extends State<PokeInfo> {
                                 ),
                               ),
                             ),
+                            SizedBox(height: heightSize * .01),
                             ...selectedPokemon.types.map(
                               (e) => Container(
                                 width: widthSize * 0.18,
+                                margin: EdgeInsets.only(
+                                  bottom: heightSize * .01,
+                                ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
                                   border: Border.all(
@@ -243,7 +252,8 @@ class _PokeInfoState extends State<PokeInfo> {
                                   ),
                                 ),
                               ),
-                            )
+                            ),
+                            const Spacer(),
                           ],
                         ),
                       ),

@@ -110,29 +110,67 @@ void main() {
 
 final payload = {
   'result': {
-    'name': 'Thiago',
-    'email': 'teste@teste.com',
-    'token': 'r:a15074e827c86a1dd4db1a386d8ba515',
-    'pokemonList': [
-      {
-        'name': 'bulbasaur',
-        'pokemonId': 1,
-        'isShiny': false,
-        'spriteUrl':
-            'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
-        'stats': [
-          {'name': 'hp', 'statValue': 45},
-          {'name': 'attack', 'statValue': 49},
-          {'name': 'defense', 'statValue': 49},
-          {'name': 'special-attack', 'statValue': 65},
-          {'name': 'special-defense', 'statValue': 65},
-          {'name': 'speed', 'statValue': 45}
-        ],
-        'types': [
-          {'name': 'grass', 'color': '7AC74C'},
-          {'name': 'poison', 'color': 'A33EA1'}
-        ]
-      }
-    ]
+    'pokemon': {
+      'name': 'nidorina',
+      'pokemonId': 30,
+      'isShiny': false,
+      'spriteUrl':
+          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/30.png',
+      'stats': [
+        {'name': 'hp', 'statValue': 70},
+        {'name': 'attack', 'statValue': 62},
+        {'name': 'defense', 'statValue': 67},
+        {'name': 'special-attack', 'statValue': 55},
+        {'name': 'special-defense', 'statValue': 55},
+        {'name': 'speed', 'statValue': 56}
+      ],
+      'types': [
+        {'name': 'poison', 'color': 'A33EA1'}
+      ]
+    },
+    'user': {
+      'name': 'Thiago',
+      'email': 'teste@teste.com',
+      'token': 'r:9effca5150aae229459544ae6be4009c',
+      'pokemonList': [
+        {
+          'name': 'bulbasaur',
+          'pokemonId': 1,
+          'isShiny': false,
+          'spriteUrl':
+              'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
+          'stats': [
+            {'name': 'hp', 'statValue': 45},
+            {'name': 'attack', 'statValue': 49},
+            {'name': 'defense', 'statValue': 49},
+            {'name': 'special-attack', 'statValue': 65},
+            {'name': 'special-defense', 'statValue': 65},
+            {'name': 'speed', 'statValue': 45}
+          ],
+          'types': [
+            {'name': 'grass', 'color': '7AC74C'},
+            {'name': 'poison', 'color': 'A33EA1'}
+          ]
+        },
+        {
+          'name': 'nidorina',
+          'pokemonId': 30,
+          'isShiny': false,
+          'spriteUrl':
+              'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/30.png',
+          'stats': [
+            {'name': 'hp', 'statValue': 70},
+            {'name': 'attack', 'statValue': 62},
+            {'name': 'defense', 'statValue': 67},
+            {'name': 'special-attack', 'statValue': 55},
+            {'name': 'special-defense', 'statValue': 55},
+            {'name': 'speed', 'statValue': 56}
+          ],
+          'types': [
+            {'name': 'poison', 'color': 'A33EA1'}
+          ]
+        }
+      ]
+    }
   }
 };

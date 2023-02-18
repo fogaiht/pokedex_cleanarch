@@ -26,6 +26,20 @@ ThemeData appTheme = ThemeData(
     cursorColor: ThemeColors.primaryColor,
     selectionHandleColor: ThemeColors.primaryColor,
   ),
+  checkboxTheme: CheckboxThemeData(
+    fillColor: MaterialStateColor.resolveWith(
+      (states) => states.contains(MaterialState.selected)
+          ? ThemeColors.primaryColor
+          : states.contains(MaterialState.pressed)
+              ? ThemeColors.white
+              : ThemeColors.primaryColor,
+    ),
+    checkColor: MaterialStateColor.resolveWith(
+      (states) => states.contains(MaterialState.selected)
+          ? ThemeColors.white
+          : ThemeColors.primaryColor,
+    ),
+  ),
   backgroundColor: ThemeColors.backgroundColor,
   scaffoldBackgroundColor: ThemeColors.primaryColor,
   inputDecorationTheme: InputDecorationTheme(

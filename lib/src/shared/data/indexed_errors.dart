@@ -10,4 +10,5 @@ class IndexedErrors {
 
   ///* InternalMapperErrors *///
   static const String loginResponseMapperError = '[0x2001]';
+  static const String signUpResponseMapperError = '[0x2002]';
 }

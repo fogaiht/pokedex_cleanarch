@@ -52,5 +52,8 @@ flutter:
       fonts:
         - asset: assets/fonts/PokemonSolid.ttf
           weight: 900
+
+    - family: PokemonHollow
+      fonts:
         - asset: assets/fonts/PokemonHollow.ttf
           weight: 200

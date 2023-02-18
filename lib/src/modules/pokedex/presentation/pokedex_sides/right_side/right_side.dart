@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/domain/entities/pokemon_entity.dart';
+import '../../../../../shared/theme/colors.dart';
 import 'components/export/right_components.dart';
 
 class RightPage extends StatelessWidget {
@@ -13,6 +14,7 @@ class RightPage extends StatelessWidget {
     double widthSize = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: ThemeColors.white,
       body: SafeArea(
         child: Stack(
           children: <Widget>[

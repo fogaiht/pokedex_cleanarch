@@ -9,6 +9,7 @@ class PokedexBottom extends StatelessWidget {
   final void Function(Pokemon?) onSelectPokemon;
   final void Function(Pokemon?) nextPokemon;
   final void Function(Pokemon?) previousPokemon;
+  final void Function() readPokemon;
 
   const PokedexBottom({
     super.key,
@@ -16,6 +17,7 @@ class PokedexBottom extends StatelessWidget {
     required this.onSelectPokemon,
     required this.nextPokemon,
     required this.previousPokemon,
+    required this.readPokemon,
   });
 
   @override
@@ -147,6 +149,8 @@ class PokedexBottom extends StatelessWidget {
                 // if (results != null) {
                 //   widget.pokedexController.addPokemon(results);
                 // }
+
+                readPokemon();
 
                 print('LER QR CODE');
               },
