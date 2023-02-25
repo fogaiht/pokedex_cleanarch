@@ -1,5 +1,7 @@
 import 'package:mobx/mobx.dart';
 
+import '../../../core/domain/entities/user_entity.dart';
+import '../../../core/external/mappers/user_entity_mapper.dart';
 import '../../../shared/storage/export/storage.dart';
 import '../../../shared/utils/pokedex_state.dart';
 import '../../pages.dart';
@@ -12,22 +14,27 @@ abstract class _SplashControllerBase with Store {
   final ICustomAppStorage _storage;
 
   _SplashControllerBase(this._storage);
+  @observable
+  User? _user;
+  @computed
+  User? get user => _user;
 
   @observable
-  PokedexState _pokedexState = PokedexState.start;
-  @computed
-  PokedexState get pokedexState => _pokedexState;
+  bool userIsLogged = false;
 
   @action
   Future<String> splashValidation() async {
-    final userIsLogged = await _userIsLogged();
+    await _userIsLogged();
     return userIsLogged ? PokedexPage.routeName : LoginPage.routeName;
   }
 
   @action
-  Future<bool> _userIsLogged() async {
-    _pokedexState = PokedexState.loading;
-    final userData = await _storage.getAllKeys();
-    return userData.containsKey('token') && userData.containsKey('eventCode');
+  Future<void> _userIsLogged() async {
+    final userData = await _storage.readKey('user');
+
+    if (userData.toString().isNotEmpty) {
+      _user = UserEntityMapper.fromJson(userData);
+      userIsLogged = true;
+    }
   }
 }

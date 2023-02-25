@@ -13,6 +13,7 @@ class LeftSide extends StatelessWidget {
   final void Function(Pokemon?) nextPokemon;
   final void Function(Pokemon?) previousPokemon;
   final void Function() readPokemon;
+  final void Function() onLogout;
 
   const LeftSide({
     super.key,
@@ -23,6 +24,7 @@ class LeftSide extends StatelessWidget {
     required this.nextPokemon,
     required this.previousPokemon,
     required this.readPokemon,
+    required this.onLogout,
   });
 
   @override
@@ -35,7 +37,7 @@ class LeftSide extends StatelessWidget {
             Column(
               children: <Widget>[
                 const Spacer(),
-                const PokedexHeader(),
+                PokedexHeader(onLogout: onLogout),
                 Center(
                   child: PokedexScreen(
                     pokemonList: pokemonList,

@@ -33,6 +33,8 @@ class PokedexModule {
       () => ReadPokemonUsecase(getIt()),
     );
 
-    getIt.registerFactory<PokedexController>(() => PokedexController(getIt()));
+    getIt.registerFactory<PokedexController>(
+      () => PokedexController(getIt(), getIt()),
+    );
   }
 }

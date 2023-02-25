@@ -3,7 +3,9 @@ import 'package:mobx/mobx.dart';
 
 import '../../../core/domain/entities/pokemon_entity.dart';
 import '../../../core/domain/entities/user_entity.dart';
+import '../../../core/external/mappers/user_entity_mapper.dart';
 import '../../../shared/contracts/export/contracts.dart';
+import '../../../shared/storage/export/storage.dart';
 import '../../../shared/utils/pokedex_state.dart';
 import '../pokedex_module.dart';
 
@@ -13,7 +15,8 @@ class PokedexController = _PokedexControllerBase with _$PokedexController;
 
 abstract class _PokedexControllerBase with Store {
   final IReadPokemonUsecase _readPokemonUsecase;
-  _PokedexControllerBase(this._readPokemonUsecase);
+  final ICustomAppStorage _storage;
+  _PokedexControllerBase(this._readPokemonUsecase, this._storage);
 
   @observable
   PokedexState _pokedexState = PokedexState.start;
@@ -21,11 +24,30 @@ abstract class _PokedexControllerBase with Store {
   PokedexState get pokedexState => _pokedexState;
 
   @observable
+  PokedexState _logoutState = PokedexState.start;
+  @computed
+  PokedexState get logoutState => _logoutState;
+
+  @observable
   ObservableList<Pokemon> pokemonList = <Pokemon>[].asObservable();
 
   @action
-  void initData(User user) {
-    pokemonList.addAll(user.pokemonList);
+  Future<void> initData(User? user) async {
+    if (user != null) {
+      pokemonList.addAll(user.pokemonList);
+    } else {
+      final userFromStorage = UserEntityMapper.fromJson(
+        await _storage.readKey('user'),
+      );
+      pokemonList.addAll(userFromStorage.pokemonList);
+    }
+  }
+
+  @action
+  Future<void> onLogout() async {
+    _logoutState = PokedexState.loading;
+    await _storage.deleteAllKeys();
+    _logoutState = PokedexState.success;
   }
 
   @observable

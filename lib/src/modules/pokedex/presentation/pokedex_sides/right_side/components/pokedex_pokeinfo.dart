@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../../../core/domain/entities/pokemon_entity.dart';
 import '../../../../../../core/external/mappers/pokemon_entity_mapper.dart';
 import '../../../../../../shared/data/extensions.dart';
+import '../../../../../../shared/theme/colors.dart';
 import 'pokedex_base_stats.dart';
 
 class PokeInfo extends StatefulWidget {
@@ -71,7 +72,7 @@ class _PokeInfoState extends State<PokeInfo> {
                     Shadow(
                       offset: Offset(5.0, 5.0),
                       blurRadius: 8.0,
-                      color: Color.fromARGB(125, 0, 0, 255),
+                      color: ThemeColors.pokeShadowColor,
                     ),
                   ],
                 ),
@@ -91,7 +92,7 @@ class _PokeInfoState extends State<PokeInfo> {
                     Shadow(
                       offset: Offset(5.0, 5.0),
                       blurRadius: 8.0,
-                      color: Color.fromARGB(125, 0, 0, 255),
+                      color: ThemeColors.pokeShadowColor,
                     ),
                   ],
                 ),
@@ -171,7 +172,7 @@ class _PokeInfoState extends State<PokeInfo> {
                                   Shadow(
                                     offset: Offset(5.0, 5.0),
                                     blurRadius: 8.0,
-                                    color: Color.fromARGB(125, 0, 0, 255),
+                                    color: ThemeColors.pokeShadowColor,
                                   ),
                                 ],
                               ),

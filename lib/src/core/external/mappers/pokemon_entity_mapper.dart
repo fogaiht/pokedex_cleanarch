@@ -45,11 +45,12 @@ class PokemonEntityMapper extends Pokemon {
         'pokemonId': entity.id,
         'isShiny': entity.isShiny,
         'spriteUrl': entity.spriteUrl,
-        'stats': entity.stats.map(
-          (e) => PokemonStatEntityMapper.toJsonFromEntity(e),
-        ),
-        'types':
-            entity.types.map((e) => PokemonTypeEntityMapper.toJsonFromEntity(e))
+        'stats': entity.stats
+            .map((e) => PokemonStatEntityMapper.toJsonFromEntity(e))
+            .toList(),
+        'types': entity.types
+            .map((e) => PokemonTypeEntityMapper.toJsonFromEntity(e))
+            .toList()
       };
 
   static Pokemon empty() => const Pokemon(

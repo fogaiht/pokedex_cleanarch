@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../../shared/theme/colors.dart';
-import '../../../shared/utils/pokedex_state.dart';
 import '../../../shared/widgets/pokedex_spin_ring.dart';
 import 'splash_controller.dart';
 
@@ -39,8 +37,10 @@ class _SplashPageState extends State<SplashPage>
         if (status == AnimationStatus.completed) {
           SchedulerBinding.instance.addPostFrameCallback((_) async {
             final routeName = await _controller.splashValidation();
-
-            _navigator.pushReplacementNamed(routeName);
+            _navigator.pushReplacementNamed(
+              routeName,
+              arguments: {'user': _controller.user},
+            );
           });
         }
       });
@@ -51,6 +51,12 @@ class _SplashPageState extends State<SplashPage>
 
     _animController.forward();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animController.dispose();
+    super.dispose();
   }
 
   @override
@@ -84,19 +90,9 @@ class _SplashPageState extends State<SplashPage>
                 );
               },
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Observer(
-                builder: (_) {
-                  return AnimatedOpacity(
-                    duration: const Duration(milliseconds: 1500),
-                    opacity: (_controller.pokedexState == PokedexState.loading)
-                        ? 1
-                        : 0,
-                    child: const PokedexSpinRing(color: ThemeColors.white),
-                  );
-                },
-              ),
+            const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: PokedexSpinRing(color: ThemeColors.white, size: 30),
             ),
             const Spacer(),
           ],

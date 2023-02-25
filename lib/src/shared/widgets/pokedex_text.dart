@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/colors.dart';
+
 class PokedexText extends StatelessWidget {
   final String label;
   final double? fontSize;
@@ -24,7 +26,7 @@ class PokedexText extends StatelessWidget {
           Shadow(
             offset: shadowOffset!,
             blurRadius: 8.0,
-            color: const Color.fromARGB(125, 0, 0, 255),
+            color: ThemeColors.pokeShadowColor,
           ),
         ],
       ),

@@ -33,6 +33,8 @@ class LoginModule {
       () => LoginUsecase(getIt()),
     );
 
-    getIt.registerFactory<LoginController>(() => LoginController(getIt()));
+    getIt.registerFactory<LoginController>(
+      () => LoginController(getIt(), getIt()),
+    );
   }
 }

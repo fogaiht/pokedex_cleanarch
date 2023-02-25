@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PokedexHeader extends StatelessWidget {
-  const PokedexHeader({super.key});
+  final void Function() onLogout;
+  const PokedexHeader({super.key, required this.onLogout});
 
   @override
   Widget build(BuildContext context) {
@@ -88,12 +89,7 @@ class PokedexHeader extends StatelessWidget {
           top: heightSize * 0.02,
           left: widthSize * 0.78,
           child: IconButton(
-            onPressed: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                '/login',
-                (route) => false,
-              );
-            },
+            onPressed: onLogout,
             icon: Icon(
               Icons.power_settings_new,
               color: Colors.white,

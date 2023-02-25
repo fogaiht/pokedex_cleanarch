@@ -37,9 +37,9 @@ class UserEntityMapper extends User {
   static Map<String, dynamic> toJsonFromEntity(User entity) => {
         'name': entity.name,
         'email': entity.email,
-        'stats': entity.pokemonList.map(
-          (e) => PokemonEntityMapper.toJsonFromEntity(e),
-        ),
+        'pokemonList': entity.pokemonList
+            .map((e) => PokemonEntityMapper.toJsonFromEntity(e))
+            .toList(),
       };
 
   static User empty() => User(name: '', email: '', pokemonList: []);

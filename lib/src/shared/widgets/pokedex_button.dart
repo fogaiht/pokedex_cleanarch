@@ -8,7 +8,8 @@ class PokedexButton extends StatefulWidget {
   final PokedexState state;
   final void Function() onTap;
   final String label;
-  final bool? reverseButton;
+  final bool reverseButton;
+  final double scale;
 
   const PokedexButton({
     super.key,
@@ -16,6 +17,7 @@ class PokedexButton extends StatefulWidget {
     required this.onTap,
     required this.label,
     this.reverseButton = false,
+    this.scale = 1.0,
   });
 
   @override
@@ -29,26 +31,30 @@ class _PokedexButtonState extends State<PokedexButton> {
     final buttonWidth = buttonHeight * 3;
     final iconSize = buttonHeight * .8;
 
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
-      height: buttonHeight,
-      width: widget.state == PokedexState.loading ? buttonHeight : buttonWidth,
-      child: FloatingActionButton.extended(
-        heroTag: widget.label + DateTime.now().toString(),
-        label: _StateChild(
-          state: widget.state,
-          iconSize: iconSize,
-          startLabel: widget.label,
-          reverseButton: widget.reverseButton!,
+    return Transform.scale(
+      scale: widget.scale,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        height: buttonHeight,
+        width:
+            widget.state == PokedexState.loading ? buttonHeight : buttonWidth,
+        child: FloatingActionButton.extended(
+          heroTag: widget.label + DateTime.now().toString(),
+          label: _StateChild(
+            state: widget.state,
+            iconSize: iconSize,
+            startLabel: widget.label,
+            reverseButton: widget.reverseButton,
+          ),
+          backgroundColor: widget.state == PokedexState.error
+              ? const Color(0xFFE34F4F)
+              : widget.reverseButton
+                  ? ThemeColors.secondaryColor
+                  : const Color(0xff0075BE),
+          onPressed: () {
+            widget.onTap();
+          },
         ),
-        backgroundColor: widget.state == PokedexState.error
-            ? const Color(0xFFE34F4F)
-            : widget.reverseButton!
-                ? ThemeColors.secondaryColor
-                : const Color(0xff0075BE),
-        onPressed: () {
-          widget.onTap();
-        },
       ),
     );
   }

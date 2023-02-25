@@ -8,8 +8,9 @@ import '../../../shared/shared_files.dart';
 import '../../../shared/utils/pokedex_state.dart';
 import '../../../shared/widgets/pokedex_button.dart';
 import '../../../shared/widgets/pokedex_form_field.dart';
-import '../../pages.dart';
 import '../../../shared/widgets/pokedex_text.dart';
+import '../../pages.dart';
+import 'components/login_form_card.dart';
 import 'login_controller.dart';
 
 class LoginPage extends StatefulWidget {
@@ -99,12 +100,7 @@ class _LoginPageState extends State<LoginPage> {
             header: PokedexText(label: 'Pokédex', fontSize: size1 * 120),
             body: Column(
               children: [
-                Container(
-                  decoration: const BoxDecoration(color: Colors.white),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: size1 * 30,
-                    vertical: size1 * 30,
-                  ),
+                LoginFormCard(
                   child: Form(
                     key: _formKey,
                     child: Column(
@@ -136,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                             validator: _controller.password.hasError,
                             hintText: 'Senha',
                             onFieldSubmitted: (_) async {
-                              // await _doLogin(context);
+                              await _doLogin(context);
                             },
                           );
                         }),

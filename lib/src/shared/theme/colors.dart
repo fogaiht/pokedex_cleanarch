@@ -11,6 +11,7 @@ class ThemeColors {
   static const Color white = Color(0xFFFFFFFF);
   static const Color disableColor = Color(0xFFE0E0E0);
   static const Color greyBorder = Color(0xFFE0E0E0);
+  static const Color pokeShadowColor = Color.fromARGB(125, 0, 0, 255);
 
   static const Color secondaryColor = Color(0xFFFFCC00);
   static const Color backgroundColor = Color(0xFFF9F9F9);

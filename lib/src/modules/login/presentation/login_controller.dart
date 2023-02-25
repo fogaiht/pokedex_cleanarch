@@ -3,8 +3,7 @@ import 'package:mobx/mobx.dart';
 import '../../../core/domain/entities/pokemon_entity.dart';
 import '../../../core/domain/entities/user_entity.dart';
 import '../../../core/external/mappers/user_entity_mapper.dart';
-import '../../../shared/contracts/i_error.dart';
-import '../../../shared/object_values/export/object_values.dart';
+import '../../../shared/shared_files.dart';
 import '../../../shared/utils/pokedex_state.dart';
 import '../domain/entities/login_response.dart';
 import '../domain/params/login_params.dart';
@@ -16,8 +15,9 @@ class LoginController = _LoginControllerBase with _$LoginController;
 
 abstract class _LoginControllerBase with Store {
   final ILoginUsecase loginUsecase;
+  final ICustomAppStorage _storage;
 
-  _LoginControllerBase(this.loginUsecase);
+  _LoginControllerBase(this.loginUsecase, this._storage);
 
   @observable
   PokedexState pokedexState = PokedexState.start;
@@ -59,9 +59,7 @@ abstract class _LoginControllerBase with Store {
     // );
 
     final params = LoginParams(email: email, password: password);
-
     final result = await loginUsecase(params);
-
     result.fold(_doLoginError, (r) async => await _doLoginSuccess(r));
   }
 
@@ -73,6 +71,13 @@ abstract class _LoginControllerBase with Store {
     _user = response.user;
     pokemonList = _user.pokemonList.asObservable();
     pokedexState = PokedexState.success;
+
+    if (_rememberMe) {
+      await _storage.saveKey(
+        'user',
+        UserEntityMapper.toJsonFromEntity(_user),
+      );
+    }
   }
 
   @action
@@ -80,21 +85,6 @@ abstract class _LoginControllerBase with Store {
     await Future.delayed(const Duration(milliseconds: 1000));
     pokedexState = PokedexState.error;
     await Future.delayed(const Duration(milliseconds: 1000));
-    pokedexState = PokedexState.start;
-  }
-
-  @action
-  Future<void> toggleState() async {
-    pokedexState = PokedexState.loading;
-    await Future.delayed(const Duration(milliseconds: 1500));
-    pokedexState = PokedexState.success;
-    await Future.delayed(const Duration(milliseconds: 1500));
-    pokedexState = PokedexState.start;
-    await Future.delayed(const Duration(milliseconds: 1500));
-    pokedexState = PokedexState.loading;
-    await Future.delayed(const Duration(milliseconds: 1500));
-    pokedexState = PokedexState.error;
-    await Future.delayed(const Duration(milliseconds: 1500));
     pokedexState = PokedexState.start;
   }
 }
