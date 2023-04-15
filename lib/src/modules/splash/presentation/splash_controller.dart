@@ -3,7 +3,6 @@ import 'package:mobx/mobx.dart';
 import '../../../core/domain/entities/user_entity.dart';
 import '../../../core/external/mappers/user_entity_mapper.dart';
 import '../../../shared/storage/export/storage.dart';
-import '../../../shared/utils/pokedex_state.dart';
 import '../../pages.dart';
 
 part 'splash_controller.g.dart';

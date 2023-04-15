@@ -1,10 +1,13 @@
+import 'dart:convert';
+
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../core/domain/entities/pokemon_entity.dart';
 import '../../../core/domain/entities/user_entity.dart';
 import '../../../core/external/mappers/user_entity_mapper.dart';
-import '../../../shared/contracts/export/contracts.dart';
+import '../../../shared/errors/export/errors.dart';
 import '../../../shared/storage/export/storage.dart';
 import '../../../shared/utils/pokedex_state.dart';
 import '../pokedex_module.dart';
@@ -86,16 +89,26 @@ abstract class _PokedexControllerBase with Store {
   }
 
   @action
-  Future<void> doReadPokemon(BuildContext context) async {
+  Future<Either<IError, Pokemon>> doReadPokemon(
+    BuildContext context,
+    String qrData,
+  ) async {
     _pokedexState = PokedexState.loading;
-    final qrData = {'pokeId': 26, 'isShiny': false};
-    final params = ReadPokemonParams.fromJson(qrData);
+    try {
+      final jsonQr = jsonDecode(qrData);
+      final params = ReadPokemonParams.fromJson(jsonQr);
 
-    final response = await _readPokemonUsecase(params);
-    response.fold(
-      _doReadPokemonError,
-      (r) async => await _doReadPokemonSuccess(r, context),
-    );
+      final response = await _readPokemonUsecase(params);
+      return response.fold(
+        (l) => _doReadPokemonError(l),
+        (r) async => await _doReadPokemonSuccess(r, context),
+      );
+    } catch (e) {
+      _pokedexState = PokedexState.error;
+      return Left(
+        DomainError(message: e.toString(), stackTrace: StackTrace.current),
+      );
+    }
   }
 
   int _getReadedPokemonIndex(Pokemon pokemon) {
@@ -103,23 +116,25 @@ abstract class _PokedexControllerBase with Store {
   }
 
   @action
-  Future<void> _doReadPokemonSuccess(
+  Future<Either<IError, Pokemon>> _doReadPokemonSuccess(
     ReadPokemonResponse response,
     BuildContext context,
   ) async {
+    pokemonList.clear();
+    pokemonList.addAll(response.user.pokemonList);
+    _pokemonIndex = _getReadedPokemonIndex(response.readedPokemon);
+    selectedPokemon = pokemonList[_pokemonIndex];
     await precacheImage(
       Image.network(selectedPokemon!.spriteUrl).image,
       context,
     );
     _pokedexState = PokedexState.success;
-    pokemonList.clear();
-    pokemonList.addAll(response.user.pokemonList);
-    _pokemonIndex = _getReadedPokemonIndex(response.readedPokemon);
-    selectedPokemon = pokemonList[_pokemonIndex];
+    return Right(selectedPokemon!);
   }
 
   @action
-  Future<void> _doReadPokemonError(IError error) async {
+  Future<Either<IError, Pokemon>> _doReadPokemonError(IError error) async {
     _pokedexState = PokedexState.error;
+    return Left(error);
   }
 }

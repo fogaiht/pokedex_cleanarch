@@ -1,15 +1,19 @@
 import 'dart:ui';
 
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/domain/entities/pokemon_entity.dart';
+import '../../../../../../shared/contracts/i_error.dart';
+import '../../../../../../shared/utils/pokedex_state.dart';
+import '../../../../../reader/reader_module.dart';
 
 class PokedexBottom extends StatelessWidget {
   final Pokemon? selectedPokemon;
   final void Function(Pokemon?) onSelectPokemon;
   final void Function(Pokemon?) nextPokemon;
   final void Function(Pokemon?) previousPokemon;
-  final void Function() readPokemon;
+  final Future<Either<IError, Pokemon>> Function(String) readPokemon;
 
   const PokedexBottom({
     super.key,
@@ -136,23 +140,12 @@ class PokedexBottom extends StatelessWidget {
             bottom: heightSize * 0.4,
             left: widthSize * 0.253,
             child: GestureDetector(
-              onTap: () async {
-                // String results = await Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => ScanView(
-                //       cornerColor: Colors.red,
-                //     ),
-                //   ),
-                // );
-
-                // if (results != null) {
-                //   widget.pokedexController.addPokemon(results);
-                // }
-
-                readPokemon();
-
-                print('LER QR CODE');
+              onTap: () {
+                PokedexReader.toRead(
+                  context,
+                  onRead: readPokemon,
+                  pokedexState: PokedexState.start,
+                );
               },
               child: Container(
                 width: widthSize * 0.286,

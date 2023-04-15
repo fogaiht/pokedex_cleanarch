@@ -122,10 +122,26 @@ class _SignUpPageState extends State<SignUpPage> {
               ],
             ),
             body: Container(
-              decoration: const BoxDecoration(color: Colors.white),
-              padding: EdgeInsets.symmetric(
-                horizontal: size1 * 30,
-                vertical: size1 * 30,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(offset: Offset(10.0, 10.0), blurRadius: 3.0),
+                  BoxShadow(
+                    offset: Offset(10.0, 10.0),
+                    blurRadius: 8.0,
+                    color: ThemeColors.pokeShadowColor,
+                  ),
+                ],
+              ),
+              padding: EdgeInsets.only(
+                left: size1 * 16,
+                right: size1 * 16,
+                top: size1 * 16,
+              ),
+              margin: EdgeInsets.only(
+                bottom: size1 * 32,
+                right: size1 * 16,
+                left: size1 * 16,
               ),
               child: Form(
                 key: _formKey,

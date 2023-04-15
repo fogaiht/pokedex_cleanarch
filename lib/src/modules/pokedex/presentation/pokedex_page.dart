@@ -58,6 +58,15 @@ class _PokedexPageState extends State<PokedexPage> {
           );
         }
       }),
+      reaction<PokedexState>((r) => _controller.pokedexState, (state) async {
+        if (state == PokedexState.success) {
+          await Future.delayed(const Duration(milliseconds: 1500));
+          _pageController.nextPage(
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeIn,
+          );
+        }
+      }),
     ];
 
     super.initState();
@@ -97,8 +106,8 @@ class _PokedexPageState extends State<PokedexPage> {
                 state: _controller.pokedexState,
                 pokemonList: _controller.pokemonList,
                 selectedPokemon: _controller.selectedPokemon,
-                readPokemon: () async {
-                  await _controller.doReadPokemon(context);
+                readPokemon: (qrData) async {
+                  return await _controller.doReadPokemon(context, qrData);
                 },
                 onSelectPokemon: (pokemon) {
                   _controller.onSelectPokemon(pokemon);

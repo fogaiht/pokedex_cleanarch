@@ -1,6 +1,8 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/domain/entities/pokemon_entity.dart';
+import '../../../../../shared/contracts/i_error.dart';
 import '../../../../../shared/theme/colors.dart';
 import '../../../../../shared/utils/pokedex_state.dart';
 import 'components/export/left_components.dart';
@@ -12,7 +14,7 @@ class LeftSide extends StatelessWidget {
   final void Function(Pokemon?) onSelectPokemon;
   final void Function(Pokemon?) nextPokemon;
   final void Function(Pokemon?) previousPokemon;
-  final void Function() readPokemon;
+  final Future<Either<IError, Pokemon>> Function(String) readPokemon;
   final void Function() onLogout;
 
   const LeftSide({
